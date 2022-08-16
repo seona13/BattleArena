@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : MonoSingleton<TurnManager>
 {
     public event UnityAction<Character> OnBeginTurn;
     public event UnityAction<Character> OnEndTurn;
@@ -17,18 +17,6 @@ public class TurnManager : MonoBehaviour
     private int _curCharacterIndex = -1;
 
     public Character currentCharacter;
-
-    public static TurnManager Instance;
-
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
-        else
-            Instance = this;
-    }
-
 
     void OnEnable()
     {
