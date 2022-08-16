@@ -9,6 +9,8 @@ public class Character : MonoBehaviour
     public static event UnityAction<Character> OnDie;
 
     [SerializeField]
+    private string _characterName;
+    [SerializeField]
     private int _curHP;
     [SerializeField]
     private int _maxHP;
@@ -48,6 +50,12 @@ public class Character : MonoBehaviour
     }
 
 
+    public void SetOpponent(Character opponent)
+    {
+        _opponent = opponent;
+    }
+
+
     public void TakeDamage(int damageToTake)
     {
         _curHP -= damageToTake;
@@ -70,10 +78,10 @@ public class Character : MonoBehaviour
     {
         _curHP += healAmount;
 
-        OnHealthChange?.Invoke();
-
         if (_curHP > _maxHP)
             _curHP = _maxHP;
+
+        OnHealthChange?.Invoke();
     }
 
 
