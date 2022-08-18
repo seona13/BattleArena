@@ -9,6 +9,10 @@ public class TurnManager : MonoSingleton<TurnManager>
     public event UnityAction<Character> OnBeginTurn;
     public event UnityAction<Character> OnEndTurn;
     public event UnityAction OnEnemyDied;
+    public event UnityAction<int> OnRoundBegin;
+
+    private int _rounds;
+    private int _curRound;
 
     [SerializeField]
     private Character _player;
@@ -45,6 +49,9 @@ public class TurnManager : MonoSingleton<TurnManager>
 
     void Start()
     {
+        _rounds = EnemyManager.Instance.GetEnemyCount();
+        _curRound++;
+        OnRoundBegin?.Invoke(_curRound);
         BeginNextTurn();
     }
 
@@ -77,6 +84,8 @@ public class TurnManager : MonoSingleton<TurnManager>
         else
         {
             OnEnemyDied?.Invoke();
+            _curRound++;
+            OnRoundBegin?.Invoke(_curRound);
         }
     }
 

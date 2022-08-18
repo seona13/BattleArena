@@ -56,4 +56,10 @@ public class EnemyManager : MonoSingleton<EnemyManager>
             TurnManager.Instance.RegisterNewEnemy(enemy);
         }
     }
+
+
+    public int GetEnemyCount()
+    {
+        return _enemies.Length;
+    }
 }
